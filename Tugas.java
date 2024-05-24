@@ -1,14 +1,44 @@
 import java.util.Scanner;
 import java.util.HashMap;
 
-public class Tugas {
+abstract class MenuItems {
+    public abstract void Makanan();
+    public abstract void Minuman();
+    public abstract void Diskon();
+}
 
-    //private static Object pilihanUser;
-    
-    static void removeMenu(HashMap<Integer, String> menus){
-        //
+
+class TampilanMenu extends MenuItems {
+    public void Makanan() {
+        HashMap<String, Double> menuMakanan = new HashMap<>();
+        menuMakanan.put("Nasi Goreng", 15.000);
+        menuMakanan.put("Nasi Padang", 20.000);
+        menuMakanan.put("Ketoprak", 13.000);
+
+        System.out.println("======Menu Makanan======");
+        for (String i : menuMakanan.keySet()) {
+            System.out.println(i);
+        }
     }
 
+    public void Minuman() {
+        HashMap<String, Double> menuMinuman = new HashMap<>();
+        menuMinuman.put("Jus Jeruk", 5.000);
+        menuMinuman.put("Es Teh", 3.000);
+        menuMinuman.put("Kopi", 7.000);
+
+        System.out.println("======Menu Minuman======");
+        for (String i : menuMinuman.keySet()) {
+            System.out.println(i);
+        }
+    }
+
+    public void Diskon() {
+        int[] diskon = {5, 10, 15, 20};
+    }
+}
+
+public class Tugas {
     public static void main(String[] args) {
         System.out.println("======Menu Makanan======");
         String menuMam = "1. Nasi Goreng(Rp 15000)\n2. Nasi Padang(Rp 20000)\n3. Ketoprak(Rp 13000)";
