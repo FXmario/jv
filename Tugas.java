@@ -1,5 +1,9 @@
 import java.util.Scanner;
 import java.util.HashMap;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
 
 abstract class MenuItems {
     public abstract void Makanan();
@@ -10,26 +14,32 @@ abstract class MenuItems {
 
 class TampilanMenu extends MenuItems {
     public void Makanan() {
-        HashMap<String, Double> menuMakanan = new HashMap<>();
-        menuMakanan.put("Nasi Goreng", 15.000);
-        menuMakanan.put("Nasi Padang", 20.000);
-        menuMakanan.put("Ketoprak", 13.000);
-
-        System.out.println("======Menu Makanan======");
-        for (String i : menuMakanan.keySet()) {
-            System.out.println(i);
+        try {
+            File menuMakanan = new File("makanan.txt");
+            Scanner readMenu = new Scanner(menuMakanan);
+            while (readMenu.hasNextLine()) {
+                String makanan = readMenu.nextLine();
+                System.out.println(makanan);
+            }
+            readMenu.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Menu Makanan sedang tidak tersedia");
+            e.printStackTrace();
         }
     }
 
     public void Minuman() {
-        HashMap<String, Double> menuMinuman = new HashMap<>();
-        menuMinuman.put("Jus Jeruk", 5.000);
-        menuMinuman.put("Es Teh", 3.000);
-        menuMinuman.put("Kopi", 7.000);
-
-        System.out.println("======Menu Minuman======");
-        for (String i : menuMinuman.keySet()) {
-            System.out.println(i);
+        try { 
+            File menuMinuman = new File("minuman.txt");
+            Scanner readMenu = new Scanner(menuMinuman);
+            while (readMenu.hasNextLine()) {
+                String minuman = readMenu.nextLine();
+                System.out.println(minuman);
+            }
+            readMenu.close();
+        } catch (FileNotFoundException e) { 
+            System.out.println("Menu Minuman sedang tidak tersedia");
+            e.printStackTrace();
         }
     }
 
@@ -38,8 +48,23 @@ class TampilanMenu extends MenuItems {
     }
 }
 
+class Pesanan {
+    static void pesananPelanggan(String[] listPesanan) {
+        for (String pesanan : listPesanan) {
+            System.out.println(pesanan);
+        }
+    }
+}
+
 public class Tugas {
     public static void main(String[] args) {
+        TampilanMenu menuRestoran = new TampilanMenu();
+        System.out.println("========== Makanan ==========");
+        menuRestoran.Makanan();
+        System.out.println("========== Minuman ==========");
+        menuRestoran.Minuman();
+
+/*
         System.out.println("======Menu Makanan======");
         String menuMam = "1. Nasi Goreng(Rp 15000)\n2. Nasi Padang(Rp 20000)\n3. Ketoprak(Rp 13000)";
         System.out.println(menuMam);
@@ -106,5 +131,6 @@ public class Tugas {
             System.out.println("Setelah Discount: Rp." + (finalTotal - discount));
         }  
     jumlahMakananObj.close();
+*/
     }
 }
