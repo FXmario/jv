@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 abstract class MenuItems {
     public abstract void Makanan();
     public abstract void Minuman();
-    public abstract void Diskon();
+    public abstract void Diskon(double harga);
 }
 
 
@@ -43,8 +43,8 @@ class TampilanMenu extends MenuItems {
         }
     }
 
-    public void Diskon() {
-        int[] diskon = {5, 10, 15, 20};
+    public void Diskon(double harga) {
+        double discount = (10/harga) * 100;
     }
 }
 
@@ -58,12 +58,33 @@ class Pesanan {
 
 public class Tugas {
     public static void main(String[] args) {
-        TampilanMenu menuRestoran = new TampilanMenu();
-        System.out.println("========== Makanan ==========");
-        menuRestoran.Makanan();
-        System.out.println("========== Minuman ==========");
-        menuRestoran.Minuman();
+        System.out.println("========== Dashboard Restoran ==========");
+        System.out.println("1. Menu\n2. Tambah Menu");
+        Scanner pilihDashboardObj = new Scanner(System.in);
+        System.out.print("Pilih Dashboard: ");
+        int pilihDashboard = pilihDashboardObj.nextInt();
 
+
+        if (pilihDashboard == 1) {
+            System.out.println("Menu :\n1. Makanan\n2. Minuman");
+            TampilanMenu menuRestoran = new TampilanMenu();
+            Scanner pilihMenuObj = new Scanner(System.in);
+            System.out.print("Pilih Menu: ");
+            int pilihMenu = pilihMenuObj.nextInt();
+
+            if (pilihMenu == 1) {
+                System.out.println("========== Makanan ==========");
+                menuRestoran.Makanan();
+            } else if (pilihMenu == 2) {
+                System.out.println("========== Minuman ==========");
+                menuRestoran.Minuman();
+            } else {
+                System.out.println("Pilihan tidak tersedia");
+                System.exit(0);
+            }
+            pilihMenuObj.close();
+        }
+        pilihDashboardObj.close();
 /*
         System.out.println("======Menu Makanan======");
         String menuMam = "1. Nasi Goreng(Rp 15000)\n2. Nasi Padang(Rp 20000)\n3. Ketoprak(Rp 13000)";
