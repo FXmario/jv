@@ -1,3 +1,3 @@
-Jus Jeruk
-Es Teh
-Kopi
+Jus Jeruk,5000
+Es Teh,3000
+Kopi,7000

@@ -17,11 +17,23 @@ class TampilanMenu extends MenuItems {
         try {
             File menuMakanan = new File("makanan.txt");
             Scanner readMenu = new Scanner(menuMakanan);
+            int number = 1;
             while (readMenu.hasNextLine()) {
                 String makanan = readMenu.nextLine();
-                System.out.println(makanan);
+
+                String[] parts = makanan.split(",");
+                String namaMakanan = parts[0].trim();
+                Double hargaMakanan = Double.parseDouble(parts[1].trim());
+
+                System.out.println(number + ". " + namaMakanan + ": Rp." + hargaMakanan);
+                number ++;
             }
             readMenu.close();
+
+            System.out.print("Pilih Makanan: ");
+            Scanner pilihMakanan = new Scanner(System.in);
+            int makanan = pilihMakanan.nextInt();
+            pilihMakanan.close();
         } catch (FileNotFoundException e) {
             System.out.println("Menu Makanan sedang tidak tersedia");
             e.printStackTrace();
@@ -32,11 +44,22 @@ class TampilanMenu extends MenuItems {
         try { 
             File menuMinuman = new File("minuman.txt");
             Scanner readMenu = new Scanner(menuMinuman);
+            int number = 1;
             while (readMenu.hasNextLine()) {
                 String minuman = readMenu.nextLine();
-                System.out.println(minuman);
+
+                String[] parts = minuman.split(",");
+                String namaMinuman = parts[0].trim();
+                Double hargaMinuman = Double.parseDouble(parts[1].trim());
+
+                System.out.println(number + ". " + namaMinuman + ": Rp." + hargaMinuman);
+                number ++;
             }
             readMenu.close();
+
+            System.out.print("Pilih Minuman: ");
+            Scanner pilihMinuman = new Scanner(System.in);
+            int minuman = pilihMinuman.nextInt();
         } catch (FileNotFoundException e) { 
             System.out.println("Menu Minuman sedang tidak tersedia");
             e.printStackTrace();
