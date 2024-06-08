@@ -18,6 +18,7 @@ class TampilanMenu extends MenuItems {
             File menuMakanan = new File("makanan.txt");
             Scanner readMenu = new Scanner(menuMakanan);
             int number = 1;
+            HashMap<Integer, String> listMakanan = new HashMap<Integer, String>();
             while (readMenu.hasNextLine()) {
                 String makanan = readMenu.nextLine();
 
@@ -25,7 +26,10 @@ class TampilanMenu extends MenuItems {
                 String namaMakanan = parts[0].trim();
                 Double hargaMakanan = Double.parseDouble(parts[1].trim());
 
-                System.out.println(number + ". " + namaMakanan + ": Rp." + hargaMakanan);
+                listMakanan.put(number, makanan);
+
+                System.out.print(number + ". " + namaMakanan);
+                System.out.printf(": Rp %.3f%n", hargaMakanan);
                 number ++;
             }
             readMenu.close();
@@ -33,9 +37,19 @@ class TampilanMenu extends MenuItems {
             System.out.print("Pilih Makanan: ");
             Scanner pilihMakanan = new Scanner(System.in);
             int makanan = pilihMakanan.nextInt();
+            String pilihanPelanggan = listMakanan.get(makanan);
+
+            String[] partString = pilihanPelanggan.split(",");
+            String makananPelanggan = partString[0].trim();
+            Double harga = Double.parseDouble(partString[1].trim());
+
             pilihMakanan.close();
+
+            System.out.println("========== Makanan Pelanggan ==========");
+            System.out.println("Makanan: " + makananPelanggan);
+            System.out.printf("Harga: Rp %.3f%n", harga);
         } catch (FileNotFoundException e) {
-            System.out.println("Menu Makanan sedang tidak tersedia");
+            System.out.println("Menu Makanan saat ini tidak tersedia");
             e.printStackTrace();
         }
     }
@@ -52,7 +66,8 @@ class TampilanMenu extends MenuItems {
                 String namaMinuman = parts[0].trim();
                 Double hargaMinuman = Double.parseDouble(parts[1].trim());
 
-                System.out.println(number + ". " + namaMinuman + ": Rp." + hargaMinuman);
+                System.out.print(number + ". " + namaMinuman);
+                System.out.printf(": Rp %.3f%n", hargaMinuman);
                 number ++;
             }
             readMenu.close();
@@ -61,7 +76,7 @@ class TampilanMenu extends MenuItems {
             Scanner pilihMinuman = new Scanner(System.in);
             int minuman = pilihMinuman.nextInt();
         } catch (FileNotFoundException e) { 
-            System.out.println("Menu Minuman sedang tidak tersedia");
+            System.out.println("Menu Minuman saat ini tidak tersedia");
             e.printStackTrace();
         }
     }
