@@ -1,3 +1,4 @@
+Nasi Uduk,9.000
 Nasi Goreng,15.000
 Nasi Padang,20.000
 Ketoprak,13.000

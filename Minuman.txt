@@ -1,3 +1,4 @@
 Jus Jeruk,5.000
 Es Teh,3.000
 Kopi,7.000
+Teh Sosro,5.000

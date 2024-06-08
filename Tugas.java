@@ -1,15 +1,16 @@
 import java.util.Scanner;
 import java.util.HashMap;
 import java.io.File;
-//import java.io.IOException;
+import java.io.IOException;
+import java.io.FileWriter;
 import java.io.FileNotFoundException;
-
 
 abstract class MenuItems {
     public abstract void Diskon(double harga);
     public abstract void Makanan();
     public abstract void Minuman();
 }
+
 
 
 class TampilanMenu extends MenuItems {
@@ -22,17 +23,19 @@ class TampilanMenu extends MenuItems {
         System.out.printf("Harga Akhir: Rp %.3f%n", dipotongDiskon);
         System.out.print("Bayar: ");
         double bayar = inputUser.nextDouble();
+
         if (bayar < dipotongDiskon) {
             System.out.println("Kurang bayar. Silakan ulang pesanan.");
             System.exit(0);
         }
+
         double kembalian = bayar - dipotongDiskon;
         System.out.printf("Kembalian: Rp %.3f%n", kembalian);
     }
 
     public void Makanan() {
         try {
-            File menuMakanan = new File("makanan.txt");
+            File menuMakanan = new File("Makanan.txt");
             Scanner readMenu = new Scanner(menuMakanan);
             int number = 1;
             HashMap<Integer, String> listMakanan = new HashMap<Integer, String>();
@@ -78,7 +81,7 @@ class TampilanMenu extends MenuItems {
 
     public void Minuman() {
         try { 
-            File menuMinuman = new File("minuman.txt");
+            File menuMinuman = new File("Minuman.txt");
             Scanner readMenu = new Scanner(menuMinuman);
             int number = 1;
             HashMap<Integer, String> listMinuman = new HashMap<Integer, String>();
@@ -132,6 +135,39 @@ class Pesanan {
 }
 
 public class Tugas {
+    public void TambahMenu(String tipeMenu){
+        Scanner inputUser = new Scanner(System.in);
+        System.out.print("Masukkan nama " + tipeMenu + ": ");
+        String nama = inputUser.nextLine();
+
+        System.out.print("Masukkan Harga " + tipeMenu + ": ");
+        String harga = inputUser.nextLine();
+        
+        try {
+            File listMenu = new File(tipeMenu + ".txt");
+            Scanner readMenu = new Scanner(listMenu);
+
+            String menus = "";
+            while(readMenu.hasNextLine()) {
+                String menu = readMenu.nextLine();
+                menus += menu + "\n";
+            }
+
+            String menuHarga = nama + "," + harga;
+            menus += menuHarga + "\n";
+
+            FileWriter simpanMenu = new FileWriter(tipeMenu + ".txt");
+            simpanMenu.write(menus);
+            System.out.println(nama + " berhasil di simpan.");
+            readMenu.close();
+            simpanMenu.close();
+        } catch(IOException e) {
+            System.out.println("Something Error");
+            e.printStackTrace();
+        }
+        inputUser.close();
+    }
+
     public static void main(String[] args) {
         System.out.println("========== Dashboard Restoran ==========");
         System.out.println("1. Menu\n2. Tambah Menu");
@@ -139,9 +175,8 @@ public class Tugas {
         System.out.print("Pilih Dashboard: ");
         int pilihDashboard = pilihDashboardObj.nextInt();
 
-
         if (pilihDashboard == 1) {
-            System.out.println("\n========== Menu ==========\n :\n1. Makanan\n2. Minuman");
+            System.out.println("\n========== Menu ==========\n1. Makanan\n2. Minuman");
             TampilanMenu menuRestoran = new TampilanMenu();
             Scanner pilihMenuObj = new Scanner(System.in);
             System.out.print("Pilih Menu: ");
@@ -154,10 +189,22 @@ public class Tugas {
                 System.out.println("\n========== Minuman ==========");
                 menuRestoran.Minuman();
             } else {
-                System.out.println("Pilihan tidak tersedia");
+                System.out.print("Pilihan tidak tersedia");
                 System.exit(0);
             }
             pilihMenuObj.close();
+        } else if (pilihDashboard == 2) {
+            HashMap<Integer, String> listMenu = new HashMap<Integer, String>();
+            listMenu.put(1, "Makanan");
+            listMenu.put(2, "Minuman");
+            
+            System.out.println("\n========== Menu ==========");
+            System.out.println("1. " + listMenu.get(1));
+            System.out.println("2. " + listMenu.get(2));
+            System.out.print("Pilih Menu: ");
+            int pilihMenu = pilihDashboardObj.nextInt();
+            Tugas tugasObj = new Tugas();
+            tugasObj.TambahMenu(listMenu.get(pilihMenu));
         }
         pilihDashboardObj.close();
     }
